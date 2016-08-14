@@ -1,0 +1,29 @@
+1.下载安装myEclipse 10
+2.配置Tomcat
+3.新建web service project  名字：test
+（http://blog.csdn.net/jiuqiyuliang/article/details/36424981/）
+4.在src 新建一个类 LoginServlet 继承 HttpServlet 并重写
+ public void doGet(HttpServletRequest request,  
+            HttpServletResponse response)  
+     throws ServletException,  
+            IOException 
+    public void doPost(HttpServletRequest request,  
+            HttpServletResponse response)  
+    throws ServletException,  
+            IOException {  
+                             
+    }
+
+5.配置在WebRoot下的WEB-INF的web.xml
+ <servlet>  
+        <servlet-name>MyServlet</servlet-name>  
+        <servlet-class>LoginServlet</servlet-class>  
+    </servlet>  
+  
+    <servlet-mapping>  
+        <servlet-name>MyServlet</servlet-name>  
+            <url-pattern>/LoginServlet</url-pattern>  
+    </servlet-mapping>
+6.访问 ip:端口号/LoginServlet,web 就收到了请求
+  通过request获取参数
+  通过response响应请求

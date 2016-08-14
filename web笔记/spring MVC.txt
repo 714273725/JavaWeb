@@ -1,0 +1,39 @@
+假设web项目名字为myweb
+1.在web.xml中
+配置上下文
+<context-param>
+ 	<param-name>contextConfigLocation</param-name>
+ 	<!-- 应用上下文配置文件 ,名字规则后面说明-->
+	 <param-value>/WEB-INF/AppService-servlet.xml</param-value>
+ </context-param>
+ <listener>
+ 	<listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
+ </listener>
+配置
+<servlet>
+ 	<servlet-name>AppService</servlet-name>
+ 	<servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+ 	<load-on-startup>1</load-on-startup>
+ </servlet>
+ <servlet-mapping>
+ 	<servlet-name>AppService</servlet-name>
+ 	<url-pattern>/</url-pattern>
+ </servlet-mapping>
+
+此配置表示所有 ip:端口/myweb/ 为前缀的url请求 都被拦截交由 DispatcherServlet 处理
+上下文配置文件为 servlet-name 标签里的名字 +  -servlet.xml
+即<servlet-name>AppService</servlet-name> 的上下文配置文件为 AppService-servlet.xml
+2.配置上下文配置文件 AppService-servlet.xml
+ url被拦截后Spring通过DispatcherServlet分派到各个Controller
+ Controller 的包通过上下文配置文件指定
+ <context:component-scan base-package="example.gege.app"/>
+//添加以下句子后自动把map转换为json响应客户端，要手动导入fastjson的jar包
+ <mvc:annotation-driven>
+     <mvc:message-converters>
+        <bean class="com.alibaba.fastjson.support.spring.FastJsonHttpMessageConverter" />
+     </mvc:message-converters>    
+ </mvc:annotation-driven> 
+
+
+3.Controller 
+ 
